@@ -143,11 +143,11 @@ return cursor.rowcount > 0  # True = baru, False = duplikat
 
 ## Video Demo
 
-🎥 **Link video demo:** [akan ditambahkan setelah upload ke YouTube]
+🎥 **Link video demo:** https://youtu.be/hy2qMC5e1nk?si=Fy5IL-AYz6ojecnQ
 
 ---
 
 ## Referensi
 
-Tanenbaum, A. S., & Van Steen, M. (2007). *Distributed systems: Principles and paradigms* (2nd ed.). Prentice Hall.
+Tanenbaum, A. S., & Van Steen, M. (2006). *Distributed systems: Principles and paradigms* (1nd ed.). Prentice Hall.
 ENDOFFILE

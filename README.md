@@ -1,7 +1,5 @@
 Event Aggregator — UTS Sistem Terdistribusi
-Nama: Muhammad Yunus
-NIM: 11231066
-Mata Kuliah: Sistem Terdistribusi
+NamaMuhammad YunusNIM11231066Mata KuliahSistem Terdistribusi
 
 Deskripsi Sistem
 Event Aggregator adalah layanan berbasis FastAPI yang mensimulasikan pola at-least-once delivery pada sistem terdistribusi. Sistem menerima event dari publisher, memproses event secara asinkron melalui antrian internal, dan menjamin idempotency menggunakan dedup store berbasis SQLite.
@@ -30,15 +28,15 @@ Struktur Folder
 agregator/
 ├── Dockerfile
 ├── requirements.txt
-├── data/                    # Volume mount — dedup.db disimpan di sini
+├── data/                       # Volume mount — dedup.db disimpan di sini
 └── src/
-    ├── main.py              # FastAPI app, startup, routing
-    ├── consumer.py          # Async consumer worker
-    ├── dedup_store.py       # SQLite dedup dengan INSERT OR IGNORE (atomik)
-    ├── models.py            # Pydantic model Event
-    ├── queue_worker.py      # asyncio.Queue instance
-    ├── stats.py             # Counter stats (received, unique, duplicate)
-    ├── storage_event.py     # In-memory event storage
+    ├── main.py                 # FastAPI app, startup, routing
+    ├── consumer.py             # Async consumer worker
+    ├── dedup_store.py          # SQLite dedup dengan INSERT OR IGNORE (atomik)
+    ├── models.py               # Pydantic model Event
+    ├── queue_worker.py         # asyncio.Queue instance
+    ├── stats.py                # Counter stats (received, unique, duplicate)
+    ├── storage_event.py        # In-memory event storage
     └── publisher_simulator.py  # Simulasi 5000 event + 20% duplikat
 
 Cara Menjalankan
@@ -47,11 +45,11 @@ bashdocker build -t event-processor .
 2. Run Container
 bashdocker run -p 8080:8080 -v $(pwd)/data:/app/data event-processor
 
--v $(pwd)/data:/app/data memastikan dedup.db persisten di host. Data tetap ada setelah container di-restart.
+Catatan: Flag -v $(pwd)/data:/app/data memastikan dedup.db tersimpan di host sehingga data tetap ada setelah container di-restart.
 
 3. Kirim Event (Simulator)
 bashpython -m src.publisher_simulator
-Simulator mengirim 5.000 event unik + ~20% duplikat secara acak.
+Simulator mengirim 5.000 event unik ditambah ~20% duplikat secara acak.
 
 Endpoint API
 MethodEndpointDeskripsiPOST/publishMenerima list Event, masukkan ke queueGET/eventsAmbil semua event (opsional filter ?topic=)GET/statsLihat statistik sistem
@@ -75,7 +73,7 @@ json{
 }
 
 Idempotency & Dedup
-Dedup store menggunakan INSERT OR IGNORE pada SQLite dengan primary key (topic, event_id). Ini menjamin operasi atomik — tidak ada race condition antara cek duplikat dan insert, karena keduanya terjadi dalam satu transaksi database.
+Dedup store menggunakan INSERT OR IGNORE pada SQLite dengan primary key (topic, event_id). Operasi ini atomik — tidak ada race condition antara pengecekan duplikat dan insert, karena keduanya terjadi dalam satu transaksi database.
 pythoncursor = await db.execute(
     "INSERT OR IGNORE INTO dedup(topic, event_id) VALUES (?, ?)",
     (topic, event_id),
@@ -86,9 +84,7 @@ Persistensi Dedup Store
 dedup.db di-mount sebagai Docker volume ke ./data/ di host. Ketika container di-restart, data dedup tetap ada sehingga event yang sudah diproses tidak akan diproses ulang.
 
 Video Demo
-
 🎥 Link video demo: [akan ditambahkan setelah upload ke YouTube]
-
 
 Referensi
 Tanenbaum, A. S., & Van Steen, M. (2007). Distributed systems: Principles and paradigms (2nd ed.). Prentice Hall.

@@ -1,10 +1,10 @@
-# Event Aggregator — UTS Sistem Terdistribusi
+# Event Aggregator — UTS Sistem Paralele dan Terdistribusi
 
 | | |
 |---|---|
 | **Nama** | Muhammad Yunus |
 | **NIM** | 11231066 |
-| **Mata Kuliah** | Sistem Terdistribusi |
+| **Mata Kuliah** | Sistem paralel dan Terdistribusi |
 
 ---
 
